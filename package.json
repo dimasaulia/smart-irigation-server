@@ -1,4 +1,10 @@
 {
+    "name": "smart_irigation",
+    "version": "1.0.0",
+    "description": "IOT Backend server for smart irigation system",
+    "main": "app.js",
+    "author": "Dimas Aulia",
+    "license": "MIT",
     "dependencies": {
         "@prisma/client": "^3.14.0",
         "axios": "^0.27.2",
@@ -12,8 +18,15 @@
         "nodemon": "^2.0.16",
         "prisma": "^3.14.0"
     },
+    "prisma": {
+        "seed": "node prisma/seed.js"
+    },
     "scripts": {
         "start": "node app.js",
-        "dev": "nodemon app.js"
+        "dev": "nodemon app.js",
+        "db:init": "yarn prisma init",
+        "db:migrate": "yarn prisma migrate dev",
+        "db:studio": "yarn prisma studio",
+        "db:generate": "yarn prisma generate"
     }
 }

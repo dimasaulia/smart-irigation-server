@@ -1,0 +1,58 @@
+const gateway = [
+    {
+        name: "Gateway Depok Utara",
+        location: "19271, -27515",
+        apiKey: "somesecretkey",
+        encryptionKey: "312",
+        transmitFrequency: 2400,
+        receiverFrequency: 2404,
+        onlineTimeStamp: new Date(),
+    },
+    {
+        name: "Gateway Depok Tenggara",
+        location: "19271, -27515",
+        apiKey: "somesecretkey",
+        encryptionKey: "312",
+        transmitFrequency: 2400,
+        receiverFrequency: 2404,
+        onlineTimeStamp: new Date(),
+    },
+    {
+        name: "Gateway Depok Selatan",
+        location: "19271, -27515",
+        apiKey: "somesecretkey",
+        encryptionKey: "312",
+        transmitFrequency: 2400,
+        receiverFrequency: 2404,
+        onlineTimeStamp: new Date(),
+    },
+    {
+        name: "Gateway Depok Barat",
+        location: "19271, -27515",
+        apiKey: "somesecretkey",
+        encryptionKey: "312",
+        transmitFrequency: 2400,
+        receiverFrequency: 2404,
+        onlineTimeStamp: new Date(),
+    },
+    {
+        name: "Gateway Depok Pinggiran",
+        location: "19271, -27515",
+        apiKey: "somesecretkey",
+        encryptionKey: "312",
+        transmitFrequency: 2400,
+        receiverFrequency: 2404,
+        onlineTimeStamp: new Date(),
+    },
+    {
+        name: "Gateway Depok Tengah",
+        location: "19271, -27515",
+        apiKey: "somesecretkey",
+        encryptionKey: "312",
+        transmitFrequency: 2400,
+        receiverFrequency: 2404,
+        onlineTimeStamp: new Date(),
+    },
+];
+
+module.exports = { gateway };

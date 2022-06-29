@@ -2,10 +2,12 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 exports.list = async (req, res) => {
-    const data = await prisma.gateway.findMany({});
-    setTimeout(() => {
-        res.json(data);
-    }, 2000);
+    const data = await prisma.gateway.findMany({
+        orderBy: {
+            id: "asc",
+        },
+    });
+    res.json(data);
 };
 
 exports.create = async (req, res) => {
