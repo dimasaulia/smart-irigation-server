@@ -1,0 +1,26 @@
+.form-control {
+    background: rgb(var(--neutral-5)) !important;
+    border: 1px solid var(--border-line);
+    color: rgb(var(--neutral-2));
+}
+
+.form-control:focus,
+.form-control:active {
+    border: 2px solid rgb(var(--blue-2));
+    box-shadow: none !important;
+    color: rgb(var(--neutral-2)) !important;
+    outline: none !important;
+}
+
+.main--manage--menu--form {
+    overflow: hidden;
+}
+
+.btn-clear {
+    background: transparent !important;
+    border: none !important;
+}
+
+.form--action img {
+    max-width: 30px !important;
+}

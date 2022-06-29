@@ -1,0 +1,102 @@
+.main--manage--info {
+    height: 400px !important;
+}
+
+.info--box-active {
+    background: rgba(var(--neutral-2), .3) !important;
+    border-radius: 15px;
+    padding: 10px;
+    width: 100%;
+}
+
+.main--manage--menu--list {
+    overflow: hidden;
+}
+
+.main--manage--menu--link {
+    width: 100% !important;
+}
+
+.gateway--info {
+    aspect-ratio: 1/1 !important;
+    background: grey;
+}
+
+.optional--menu {
+    border-top-left-radius: 60px;
+    height: 45px !important;
+    width: 11em;
+}
+
+.optional--menu img {
+    width: 30px !important;
+}
+
+.optional--menu-link {
+    position: relative;
+}
+
+.optional--menu-link:hover::after {
+    background: rgba(var(--neutral-2));
+    border-radius: 7px;
+    color: rgba(var(--blue-3));
+    content: attr(data-help);
+    font-weight: bolder;
+    padding: 3px;
+    position: absolute;
+    right: 0;
+    top: calc(-100% - 5px);
+    width: 120px;
+}
+
+@media only screen and (max-width: 768px) {
+    .main--manage--info {
+        height: auto !important;
+    }
+
+    .info--box-active {
+        background: rgba(var(--neutral-2), .3) !important;
+        border-radius: 8px;
+        padding: 3px 15px;
+        width: auto !important;
+    }
+
+    .optional--menu {
+        border-top-left-radius: 60px;
+        height: 40px !important;
+        width: 11em;
+    }
+
+    .optional--menu img {
+        width: 28px !important;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .main--manage--info {
+        height: auto !important;
+    }
+
+    .info--box-active {
+        background: rgba(var(--neutral-2), .3) !important;
+        border-radius: 8px;
+        padding: 3px 15px;
+        width: auto !important;
+    }
+
+    .optional--menu {
+        border-top-left-radius: 60px;
+        height: 35px !important;
+        width: 9.5em;
+    }
+
+    .optional--menu img {
+        width: 23px !important;
+    }
+}
+
+@media only screen and (max-width: 575px) and (pointer: coarse) {
+    .optional--menu-link:hover::after {
+        display: none;
+    }
+}

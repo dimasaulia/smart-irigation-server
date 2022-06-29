@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    --blue-5: 21, 5, 103;
+    --blue-4: 132, 172, 250;
+    --blue-3: 111, 203, 236;
+    --blue-2: 128, 218, 236;
+    --blue-1: 175, 238, 238;
+    --green-5: 20, 195, 142;
+    --green-4: 150, 221, 153;
+    --green-3: 165, 225, 166;
+    --neutral-5: 34, 33, 51;
+    --neutral-4: 41, 40, 61;
+    --neutral-3: 30, 30, 44;
+    --neutral-2: 226, 226, 226;
+    --danger: 254, 227, 141;
+    --warning: 244, 104, 119;
+    --success: 164, 213, 124;
+    --border-line: rgba(226, 226, 226, 0.3);
+    --nav-size-landscape: 100px;
+    --nav-size-potrait: 60px;
+    font-size: 18px;
+}
+
+* {
+    box-sizing: border-box !important;
+    margin: 0;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+body {
+    align-items: center;
+    background: rgb(var(--neutral-3));
+    color: rgb(var(--neutral-2));
+    font-family: 'Nunito', Arial, sans-serif;
+    margin: 0;
+}
+
+.bg-neutral-5 {
+    background: rgb(var(--neutral-5)) !important;
+}
+
+.bg-neutral-4 {
+    background: rgb(var(--neutral-4)) !important;
+}
+
+.bg-neutral-3 {
+    background: rgb(var(--neutral-3)) !important;
+}
+
+.bg-neutral-2 {
+    background: rgb(var(--neutral-2)) !important;
+}
+
+.bg-blue-5 {
+    background: rgb(var(--blue-5)) !important;
+}
+
+.bg-blue-4 {
+    background: rgb(var(--blue-4)) !important;
+}
+
+.bg-blue-3 {
+    background: rgb(var(--blue-3)) !important;
+}
+
+.bg-blue-2 {
+    background: rgb(var(--blue-2)) !important;
+}
+
+.bg-blue-1 {
+    background: rgb(var(--blue-1)) !important;
+}
+
+.bg-blue-gradient {
+    background: rgb(132, 172, 250);
+    background: linear-gradient(33deg, rgba(132, 172, 250, 1) 58%, rgba(111, 203, 236, 1) 100%);
+}
+
+.text-neutral-5 {
+    color: rgb(var(--neutral-5)) !important;
+}
+
+.text-neutral-4 {
+    color: rgb(var(--neutral-4)) !important;
+}
+
+.text-neutral-3 {
+    color: rgb(var(--neutral-3)) !important;
+}
+
+.text-neutral-2 {
+    color: rgb(var(--neutral-2)) !important;
+}
+
+.text-neutral-2-feed {
+    color: rgba(var(--neutral-2), .7) !important;
+}
+
+.rounded-5 {
+    border-radius: 5px;
+}
+
+.rounded-15 {
+    border-radius: 15px;
+}
+
+
+.rounded-25 {
+    border-radius: 50px;
+}
+
+.rounded-50 {
+    border-radius: 50px;
+}
+
+
+.border-line {
+    border: 1px solid var(--border-line);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgb(var(--neutral-3));
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(var(--neutral-4));
+    border-radius: 15px;
+}

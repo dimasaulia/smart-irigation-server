@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Gateway {
+  id                Int       @id @default(autoincrement())
+  name              String
+  location          String
+  apiKey            String
+  encryptionKey     String
+  transmitFrequency Int
+  receiverFrequency Int
+  onlineTimeStamp   DateTime?
+  createdAt         DateTime  @default(now())
+
+  nodeSensor SensorNode[] // gateway memiliki 0 atau lebih sensor node
+}
+
+model SensorNode {
+  id                  Int       @id @default(autoincrement())
+  name                String
+  location            String
+  sensorHeight        Int
+  transistorMapingMin Int
+  transistorMapingMax Int
+  sluiceGateOpenMax   Int
+  sluiceGateOpenMin   Int
+  transmitFrequency   Int
+  receiverFrequency   Int
+  onlineTimeStamp     DateTime?
+  createdAt           DateTime  @default(now())
+
+  record      SensorNodeDataRecord[] // 1 sensor node bisa memiliki banyak record
+  instruction SensorNodeInstruction?
+  supportNode SupportNode? //satu sensor node hanya memiliki 1 support node
+
+  gateway   Gateway @relation(fields: [gatewayId], references: [id])
+  gatewayId Int
+}
+
+model SensorNodeDataRecord {
+  id              Int      @id @default(autoincrement())
+  waterDepth      Int
+  waterFlow       Int
+  soilHumidity    Int
+  transistorValue Int
+  recordTime      Int
+  createdAt       DateTime @default(now())
+
+  sensorNode   SensorNode @relation(fields: [sensorNodeId], references: [id])
+  sensorNodeId Int
+}
+
+model SensorNodeInstruction {
+  id                        Int      @id @default(autoincrement())
+  sluiceGateOpening         Int      @default(0)
+  sluiceGateOpeningDuration Int      @default(0)
+  sluiceGateSchedule        DateTime
+  createdAt                 DateTime @default(now())
+
+  sensorNode   SensorNode @relation(fields: [sensorNodeId], references: [id])
+  sensorNodeId Int        @unique
+}
+
+model SupportNode {
+  id                Int       @id @default(autoincrement())
+  name              String
+  location          String
+  transmitFrequency Int
+  onlineTimeStamp   DateTime?
+  createdAt         DateTime  @default(now())
+
+  sensorNode   SensorNode @relation(fields: [sensorNodeId], references: [id])
+  sensorNodeId Int        @unique
+}
