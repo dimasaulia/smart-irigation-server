@@ -9,7 +9,7 @@ const generateApiKey = (length) => {
                 location: "String genartor service",
             });
         }
-        const randomString = crypto.randomBytes(length / 2).toString("hex");
+        const randomString = crypto.randomBytes(length).toString("hex");
         return randomString;
     } catch (error) {
         return error;
