@@ -1,10 +1,12 @@
 const { PrismaClient } = require("@prisma/client");
+const { urlPayloadFind } = require("../services/payloadDataGetter");
 const prisma = new PrismaClient();
 const { resError, resSuccess } = require("../services/responseHandler");
 const {
     generateApiKey,
     generateEncryptionKey,
 } = require("../services/stringGenerator");
+
 exports.list = async (req, res) => {
     try {
         const data = await prisma.gateway.findMany({
@@ -47,13 +49,18 @@ exports.create = async (req, res) => {
 };
 
 exports.detail = async (req, res) => {
-    const data = await prisma.gateway.findUnique({
-        where: {
-            id: Number(req.params.id),
-        },
-    });
+    try {
+        const gwid = urlPayloadFind(req, "gwid");
+        const data = await prisma.gateway.findUnique({
+            where: {
+                id: gwid,
+            },
+        });
 
-    res.json(data);
+        return resSuccess({ res, title: "Gateway Detail", data });
+    } catch (errors) {
+        return resError({ res, errors });
+    }
 };
 
 exports.update = async (req, res) => {

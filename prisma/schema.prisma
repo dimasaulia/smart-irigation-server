@@ -41,7 +41,7 @@ model Profil {
 }
 
 model Gateway {
-  id                Int          @id @default(autoincrement())
+  id                String       @id @default(cuid())
   name              String
   location          String
   apiKey            String
@@ -55,61 +55,59 @@ model Gateway {
 }
 
 model SensorNode {
-  id                  Int                    @id @default(autoincrement())
-  name                String
-  location            String
-  sensorHeight        Int
-  transistorMapingMin Int
-  transistorMapingMax Int
-  sluiceGateOpenMax   Int
-  sluiceGateOpenMin   Int
-  transmitFrequency   Int
-  receiverFrequency   Int
-  onlineTimeStamp     DateTime?
-  createdAt           DateTime               @default(now())
-  updatedAt           DateTime               @updatedAt
-  record              SensorNodeDataRecord[] // 1 sensor node bisa memiliki banyak record
-  instruction         SensorNodeInstruction?
-  supportNode         SupportNode? //satu sensor node hanya memiliki 1 support node
+  id                String                 @id @default(cuid())
+  shortName         String                 @unique
+  name              String
+  location          String
+  sensorHeight      Int
+  // transistorMapingMin Int
+  // transistorMapingMax Int
+  // sluiceGateOpenMax   Int
+  // sluiceGateOpenMin   Int
+  transmitFrequency Int
+  receiverFrequency Int
+  onlineTimeStamp   DateTime?
+  createdAt         DateTime               @default(now())
+  updatedAt         DateTime               @updatedAt
+  record            SensorNodeDataRecord[] // 1 sensor node bisa memiliki banyak record
+  instruction       SensorNodeInstruction?
+  supportNode       SupportNode? //satu sensor node hanya memiliki 1 support node
 
   gateway   Gateway @relation(fields: [gatewayId], references: [id])
-  gatewayId Int
+  gatewayId String
 }
 
 model SensorNodeDataRecord {
-  id              Int        @id @default(autoincrement())
-  waterDepth      Int
-  waterFlow       Int
-  soilHumidity    Int
-  transistorValue Int
-  recordTime      Int
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @updatedAt
-  sensorNode      SensorNode @relation(fields: [sensorNodeId], references: [id])
-  sensorNodeId    Int
+  id           String     @id @default(cuid())
+  waterDepth   Int
+  waterFlow    Int
+  soilHumidity Int
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  sensorNode   SensorNode @relation(fields: [sensorNodeId], references: [id])
+  sensorNodeId String
 }
 
 model SensorNodeInstruction {
-  id                        Int      @id @default(autoincrement())
-  sluiceGateOpening         Int      @default(0)
-  sluiceGateOpeningDuration Int      @default(0)
-  sluiceGateSchedule        DateTime
-  createdAt                 DateTime @default(now())
-  updatedAt                 DateTime @updatedAt
+  id                        Int       @id @default(autoincrement())
+  sluiceGateOpening         Int?      @default(0)
+  sluiceGateOpeningDuration Int?      @default(0)
+  sluiceGateSchedule        DateTime?
+  createdAt                 DateTime  @default(now())
+  updatedAt                 DateTime  @updatedAt
 
   sensorNode   SensorNode @relation(fields: [sensorNodeId], references: [id])
-  sensorNodeId Int        @unique
+  sensorNodeId String     @unique
 }
 
 model SupportNode {
-  id                Int       @id @default(autoincrement())
+  id                String   @id @default(cuid())
   name              String
   location          String
   transmitFrequency Int
-  onlineTimeStamp   DateTime?
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
   sensorNode   SensorNode @relation(fields: [sensorNodeId], references: [id])
-  sensorNodeId Int        @unique
+  sensorNodeId String     @unique
 }
