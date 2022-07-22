@@ -56,3 +56,55 @@ module.exports.create = async (req, res) => {
         return resError({ res, errors: error });
     }
 };
+
+module.exports.detail = async (req, res) => {
+    try {
+        const snid = urlPayloadFind(req, "snid");
+        const data = await prisma.sensorNode.findUnique({
+            where: {
+                id: snid,
+            },
+        });
+
+        return resSuccess({ res, title: "Sensor Node Detail", data });
+    } catch (errors) {
+        return resError({ res, errors });
+    }
+};
+
+module.exports.update = async (req, res) => {
+    try {
+        const { name, sensorHeight, location, shortName, gwid } = req.body;
+        const snid = urlPayloadFind(req, "snid");
+
+        const { receiverFrequency, transmitFrequency } =
+            await prisma.gateway.findUnique({
+                where: {
+                    id: gwid,
+                },
+            });
+
+        const data = await prisma.sensorNode.update({
+            where: {
+                id: snid,
+            },
+            data: {
+                name,
+                sensorHeight,
+                location,
+                shortName,
+                transmitFrequency: receiverFrequency,
+                receiverFrequency: transmitFrequency,
+                gateway: {
+                    connect: {
+                        id: gwid,
+                    },
+                },
+            },
+        });
+
+        return resSuccess({ res, title: "Sensor Node Detail", data });
+    } catch (errors) {
+        return resError({ res, errors });
+    }
+};

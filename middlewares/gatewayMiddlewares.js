@@ -1,10 +1,14 @@
 const { PrismaClient } = require("@prisma/client");
-const { urlPayloadFind } = require("../services/payloadDataGetter");
+const {
+    urlPayloadFind,
+    payloadFind,
+} = require("../services/payloadDataGetter");
 const prisma = new PrismaClient();
 const { resError, ErrorException } = require("../services/responseHandler");
 
 const gatewayIsExist = async (req, res, next) => {
-    const gwid = urlPayloadFind(req, "gwid");
+    const gwid = payloadFind(req, "gwid");
+    console.log("GWID ", gwid);
     try {
         const gateway = await prisma.gateway.findUnique({
             where: {
