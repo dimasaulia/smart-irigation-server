@@ -127,3 +127,27 @@ exports.getLastOnlineTime = async (req, res) => {
         return resError({ res, errors });
     }
 };
+
+exports.search = async (req, res) => {
+    const searchArg = urlPayloadFind(req, "term");
+    const results = [];
+    const searchResult = await prisma.gateway.findMany({
+        where: {
+            name: {
+                contains: searchArg,
+                mode: "insensitive",
+            },
+        },
+        select: {
+            name: true,
+            id: true,
+        },
+    });
+
+    searchResult.forEach((data) => {
+        let { name, id } = data;
+        results.push({ value: id, label: name });
+    });
+
+    res.status(200).json(results);
+};

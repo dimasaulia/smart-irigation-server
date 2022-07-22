@@ -60,5 +60,11 @@ router.get(
     gatewayIsExist,
     controllers.getLastOnlineTime
 );
+router.get(
+    "/search",
+    urlQuery("term").notEmpty(),
+    formChacker,
+    controllers.search
+);
 
 module.exports = router;
