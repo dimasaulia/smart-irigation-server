@@ -1,11 +1,12 @@
 const { PrismaClient } = require("@prisma/client");
+const { urlPayloadFind } = require("../services/payloadDataGetter");
 const prisma = new PrismaClient();
+const { resError, ErrorException } = require("../services/responseHandler");
 
 const gatewayIsExist = async (req, res, next) => {
-    const { gwid } = req.querys || req.params || req.body;
+    const gwid = urlPayloadFind(req, "gwid");
     try {
-        const { username } = req.body;
-        const gateway = await prisma.user.findUnique({
+        const gateway = await prisma.gateway.findUnique({
             where: {
                 id: gwid,
             },

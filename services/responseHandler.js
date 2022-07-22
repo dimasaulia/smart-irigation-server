@@ -21,4 +21,8 @@ const resSuccess = ({ res, title = "Successfully", data, code = 200 }) => {
     });
 };
 
-module.exports = { resError, resSuccess };
+function ErrorException({ type, detail, location = "not specified" }) {
+    this[`${type}`] = { type, detail, location };
+}
+
+module.exports = { resError, resSuccess, ErrorException };

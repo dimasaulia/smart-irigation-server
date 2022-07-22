@@ -12,13 +12,26 @@ router.get(
     controllers.list
 );
 router.get(
-    "/detail/",
+    "/detail",
+    authMiddlewares.loginRequired,
     urlQuery("gwid").notEmpty(),
     formChacker,
     gatewayIsExist,
     controllers.detail
 );
-router.post("/update/:id", controllers.update);
+router.post(
+    "/update",
+    authMiddlewares.loginRequired,
+    authMiddlewares.allowedRole("ADMIN"),
+    urlQuery("gwid").notEmpty(),
+    body("name").notEmpty(),
+    body("location").notEmpty(),
+    body("transmitFrequency").notEmpty().isLength({ min: "4", max: "4" }),
+    body("receiverFrequency").notEmpty().isLength({ min: "4", max: "4" }),
+    formChacker,
+    gatewayIsExist,
+    controllers.update
+);
 router.post(
     "/create",
     authMiddlewares.loginRequired,
@@ -30,7 +43,22 @@ router.post(
     formChacker,
     controllers.create
 );
-router.post("/update-online-status/:id", controllers.updateOnline);
-router.get("/get-last-online-time/:id", controllers.getLastOnlineTime);
+router.post(
+    "/update-online-status/",
+    authMiddlewares.loginRequired,
+    authMiddlewares.allowedRole("ADMIN"),
+    body("time").notEmpty(),
+    urlQuery("gwid").notEmpty(),
+    formChacker,
+    gatewayIsExist,
+    controllers.updateOnline
+);
+router.get(
+    "/get-last-online-time/",
+    urlQuery("gwid").notEmpty(),
+    formChacker,
+    gatewayIsExist,
+    controllers.getLastOnlineTime
+);
 
 module.exports = router;

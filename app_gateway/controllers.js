@@ -51,6 +51,7 @@ exports.create = async (req, res) => {
 exports.detail = async (req, res) => {
     try {
         const gwid = urlPayloadFind(req, "gwid");
+        console.log(gwid);
         const data = await prisma.gateway.findUnique({
             where: {
                 id: gwid,
@@ -64,57 +65,65 @@ exports.detail = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-    const data = await prisma.gateway.findUnique({
-        where: {
-            id: Number(req.params.id),
-        },
-    });
+    try {
+        const gwid = urlPayloadFind(req, "gwid");
+        const { name, location, transmitFrequency, receiverFrequency } =
+            req.body;
+        const gateway = await prisma.gateway.update({
+            where: {
+                id: gwid,
+            },
 
-    const gateway = await prisma.gateway.update({
-        where: {
-            id: Number(req.params.id),
-        },
+            data: {
+                name,
+                location,
+                transmitFrequency: Number(transmitFrequency),
+                receiverFrequency: Number(receiverFrequency),
+            },
+        });
 
-        data: {
-            name: req.body.name || data.name,
-            location: req.body.location || data.location,
-            apiKey: req.body.apiKey || data.apiKey,
-            encryptionKey: req.body.encryptionKey || data.encryptionKey,
-            transmitFrequency:
-                Number(req.body.transmitFrequency) || data.transmitFrequency,
-            receiverFrequency:
-                Number(req.body.receiverFrequency) || data.receiverFrequency,
-        },
-    });
-
-    res.json(gateway);
+        return resSuccess({
+            res,
+            title: "Success update gateway",
+            data: gateway,
+        });
+    } catch (errors) {
+        return resError({ res, errors });
+    }
 };
 
 exports.updateOnline = async (req, res) => {
-    const id = Number(req.params.id);
-    req.app.io.emit(`gateway-id-${id}`, req.body.time);
-    const gateway = await prisma.gateway.update({
-        where: {
-            id: id,
-        },
+    try {
+        const gwid = urlPayloadFind(req, "gwid");
+        req.app.io.emit(`gateway-id-${gwid}`, req.body.time);
+        const gateway = await prisma.gateway.update({
+            where: {
+                id: gwid,
+            },
 
-        data: {
-            onlineTimeStamp: new Date(req.body.time),
-        },
-    });
-    res.status(200).send(gateway);
+            data: {
+                onlineTimeStamp: new Date(req.body.time),
+            },
+        });
+        return resSuccess({ res, data: gateway });
+    } catch (errors) {
+        return resError({ res, errors });
+    }
 };
 
 exports.getLastOnlineTime = async (req, res) => {
-    const id = Number(req.params.id);
-    const lastOnlineTime = await prisma.gateway.findUnique({
-        where: {
-            id: id,
-        },
-        select: {
-            onlineTimeStamp: true,
-        },
-    });
-    console.log(lastOnlineTime);
-    res.send(lastOnlineTime);
+    try {
+        const gwid = urlPayloadFind(req, "gwid");
+        const lastOnlineTime = await prisma.gateway.findUnique({
+            where: {
+                id: gwid,
+            },
+            select: {
+                onlineTimeStamp: true,
+            },
+        });
+        return resSuccess({ res, data: lastOnlineTime });
+    } catch (errors) {
+        return resError({ res, errors });
+    }
 };
