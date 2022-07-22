@@ -5,7 +5,7 @@ const {
     encryptPassword,
     isTruePassword,
 } = require("../services/auth");
-const { resError, resSuccess } = require("../services/error");
+const { resError, resSuccess } = require("../services/responseHandler");
 const prisma = new PrismaClient();
 
 exports.login = async (req, res) => {

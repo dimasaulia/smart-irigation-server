@@ -1,27 +1,49 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-
+const { resError, resSuccess } = require("../services/responseHandler");
+const {
+    generateApiKey,
+    generateEncryptionKey,
+} = require("../services/stringGenerator");
 exports.list = async (req, res) => {
-    const data = await prisma.gateway.findMany({
-        orderBy: {
-            id: "asc",
-        },
-    });
-    res.json(data);
+    try {
+        const data = await prisma.gateway.findMany({
+            orderBy: {
+                id: "asc",
+            },
+        });
+        return resSuccess({
+            res,
+            title: "Successfully Listed Gateway Node",
+            data,
+        });
+    } catch (errors) {
+        return resError({ res, errors });
+    }
 };
 
 exports.create = async (req, res) => {
-    const gateway = await prisma.gateway.create({
-        data: {
-            name: req.body.name,
-            location: req.body.location,
-            apiKey: req.body.apiKey,
-            encryptionKey: req.body.encryptionKey,
-            transmitFrequency: Number(req.body.transmitFrequency),
-            receiverFrequency: Number(req.body.receiverFrequency),
-        },
-    });
-    res.json(gateway);
+    try {
+        const { name, location, transmitFrequency, receiverFrequency } =
+            req.body;
+        const gateway = await prisma.gateway.create({
+            data: {
+                name,
+                location,
+                apiKey: generateApiKey(8),
+                encryptionKey: generateEncryptionKey(4),
+                transmitFrequency: Number(transmitFrequency),
+                receiverFrequency: Number(receiverFrequency),
+            },
+        });
+        return resSuccess({
+            res,
+            title: "Successfully Create Gateway",
+            data: gateway,
+        });
+    } catch (errors) {
+        return resError({ res, errors });
+    }
 };
 
 exports.detail = async (req, res) => {
