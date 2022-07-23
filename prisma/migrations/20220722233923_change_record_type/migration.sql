@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "SensorNodeDataRecord" ALTER COLUMN "waterDepth" SET DATA TYPE TEXT,
+ALTER COLUMN "waterFlow" SET DATA TYPE TEXT,
+ALTER COLUMN "soilHumidity" SET DATA TYPE TEXT;

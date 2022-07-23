@@ -79,9 +79,9 @@ model SensorNode {
 
 model SensorNodeDataRecord {
   id           String     @id @default(cuid())
-  waterDepth   Int
-  waterFlow    Int
-  soilHumidity Int
+  waterDepth   String
+  waterFlow    String
+  soilHumidity String
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
   sensorNode   SensorNode @relation(fields: [sensorNodeId], references: [id])

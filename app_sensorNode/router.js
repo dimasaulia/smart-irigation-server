@@ -44,4 +44,60 @@ router.post(
     gatewayIsExist,
     sensorController.update
 );
+router.post(
+    "/delete",
+    authMiddlewares.loginRequired,
+    urlQuery("snid").notEmpty(),
+    formChacker,
+    sensorNodeIsExist,
+    sensorController.delete
+);
+router.post(
+    "/record",
+    authMiddlewares.loginRequired,
+    authMiddlewares.allowedRole("ADMIN"),
+    urlQuery("snsn").notEmpty(),
+    body("waterDepth").notEmpty().isNumeric(),
+    body("waterFlow").notEmpty().isNumeric(),
+    body("soilHumidity").notEmpty().isNumeric(),
+    formChacker,
+    sensorNodeIsExist,
+    sensorController.record
+);
+router.get(
+    "/record/list",
+    authMiddlewares.loginRequired,
+    urlQuery("snsn").notEmpty(),
+    formChacker,
+    sensorNodeIsExist,
+    sensorController.recordList
+);
+router.post(
+    "/instruction/set",
+    authMiddlewares.loginRequired,
+    authMiddlewares.allowedRole("ADMIN"),
+    urlQuery("snsn").notEmpty(),
+    body("sluiceGateOpening").notEmpty().isNumeric(),
+    formChacker,
+    sensorNodeIsExist,
+    sensorController.setInstruction
+);
+router.post(
+    "/instruction/clear",
+    authMiddlewares.loginRequired,
+    authMiddlewares.allowedRole("ADMIN"),
+    urlQuery("snsn").notEmpty(),
+    formChacker,
+    sensorNodeIsExist,
+    sensorController.clearInstruction
+);
+router.post(
+    "/instruction/get",
+    authMiddlewares.loginRequired,
+    authMiddlewares.allowedRole("ADMIN"),
+    urlQuery("snsn").notEmpty(),
+    formChacker,
+    sensorNodeIsExist,
+    sensorController.getOpeningInstruction
+);
 module.exports = router;
