@@ -1,11 +1,32 @@
 const { PrismaClient } = require("@prisma/client");
-const { gateway } = require("./gateway");
+const { user, role } = require("./gateway");
 const prisma = new PrismaClient();
 
 async function main() {
-    for (let g of gateway) {
-        await prisma.gateway.create({
-            data: g,
+    for (let r of role) {
+        const { name } = r;
+        console.log(name);
+        await prisma.role.create({
+            data: {
+                name,
+            },
+        });
+    }
+
+    for (let u of user) {
+        const { username, email, password, role } = u;
+        console.log(username, email, password, role);
+        await prisma.user.create({
+            data: {
+                role: {
+                    connect: {
+                        name: role,
+                    },
+                },
+                username,
+                email,
+                password,
+            },
         });
     }
 }

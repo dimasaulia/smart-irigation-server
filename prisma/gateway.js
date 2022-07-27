@@ -1,58 +1,21 @@
-const gateway = [
+const { encryptPassword } = require("../services/auth");
+
+const role = [
     {
-        name: "Gateway Depok Utara",
-        location: "19271, -27515",
-        apiKey: "somesecretkey",
-        encryptionKey: "312",
-        transmitFrequency: 2400,
-        receiverFrequency: 2404,
-        onlineTimeStamp: new Date(),
+        name: "USER",
     },
     {
-        name: "Gateway Depok Tenggara",
-        location: "19271, -27515",
-        apiKey: "somesecretkey",
-        encryptionKey: "312",
-        transmitFrequency: 2400,
-        receiverFrequency: 2404,
-        onlineTimeStamp: new Date(),
-    },
-    {
-        name: "Gateway Depok Selatan",
-        location: "19271, -27515",
-        apiKey: "somesecretkey",
-        encryptionKey: "312",
-        transmitFrequency: 2400,
-        receiverFrequency: 2404,
-        onlineTimeStamp: new Date(),
-    },
-    {
-        name: "Gateway Depok Barat",
-        location: "19271, -27515",
-        apiKey: "somesecretkey",
-        encryptionKey: "312",
-        transmitFrequency: 2400,
-        receiverFrequency: 2404,
-        onlineTimeStamp: new Date(),
-    },
-    {
-        name: "Gateway Depok Pinggiran",
-        location: "19271, -27515",
-        apiKey: "somesecretkey",
-        encryptionKey: "312",
-        transmitFrequency: 2400,
-        receiverFrequency: 2404,
-        onlineTimeStamp: new Date(),
-    },
-    {
-        name: "Gateway Depok Tengah",
-        location: "19271, -27515",
-        apiKey: "somesecretkey",
-        encryptionKey: "312",
-        transmitFrequency: 2400,
-        receiverFrequency: 2404,
-        onlineTimeStamp: new Date(),
+        name: "ADMIN",
     },
 ];
 
-module.exports = { gateway };
+const user = [
+    {
+        username: "dimasaulia",
+        email: "dimasauliafachrudin@gmail.com",
+        password: encryptPassword("12345678"),
+        role: "ADMIN",
+    },
+];
+
+module.exports = { user, role };
