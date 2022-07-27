@@ -35,7 +35,7 @@ module.exports.socketRecord = (io) => {
 
             axios
                 .post(
-                    "http://localhost:8000/api/v1/sensor/record/update?snsn=201",
+                    "https://smartirigation.herokuapp.com/api/v1/sensor/record/update?snsn=201",
                     {
                         waterDepth: sensorHeight - waterDepth,
                         waterFlow,
