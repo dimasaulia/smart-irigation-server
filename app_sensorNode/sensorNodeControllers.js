@@ -182,6 +182,27 @@ module.exports.record = async (req, res) => {
     }
 };
 
+module.exports.updateRecord = async (req, res) => {
+    const { waterDepth, waterFlow, soilHumidity } = req.body;
+
+    const snsn = urlPayloadFind(req, "snsn");
+    const { gatewayId, id: snid } = await prisma.sensorNode.findUnique({
+        where: { shortName: snsn },
+        select: {
+            gatewayId: true,
+            id: true,
+        },
+    });
+
+    req.app.io.emit(`node-id-${snid}`, {
+        waterDepth,
+        waterFlow,
+        soilHumidity,
+    });
+
+    res.send("");
+};
+
 module.exports.recordList = async (req, res) => {
     try {
         const snsn = urlPayloadFind(req, "snsn");

@@ -64,6 +64,16 @@ router.post(
     sensorNodeIsExist,
     sensorController.record
 );
+router.post(
+    "/record/update",
+    urlQuery("snsn").notEmpty(),
+    body("waterDepth").notEmpty().isNumeric(),
+    body("waterFlow").notEmpty().isNumeric(),
+    body("soilHumidity").notEmpty().isNumeric(),
+    formChacker,
+    sensorNodeIsExist,
+    sensorController.updateRecord
+);
 router.get(
     "/record/list",
     authMiddlewares.loginRequired,

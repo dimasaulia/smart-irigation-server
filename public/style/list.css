@@ -1,9 +1,10 @@
 .main--manage--info {
-    height: 400px !important;
+    height: 200px !important;
+    overflow: hidden;
 }
 
 .info--box-active {
-    background: rgba(var(--neutral-2), .3) !important;
+    background: var(--color-blue-1) !important;
     border-radius: 15px;
     padding: 10px;
     width: 100%;
@@ -19,34 +20,46 @@
 
 .gateway--info {
     aspect-ratio: 1/1 !important;
-    background: grey;
+    background: var(--color-blue-1);
 }
 
-.optional--menu {
-    border-top-left-radius: 60px;
-    height: 45px !important;
-    width: 11em;
+.gateway--detail {
+    width: 95% !important;
+}
+
+.gateway-link {
+    min-width: 50px;
+    width: 5% !important;
+}
+
+.gateway-icon {
+    width: 25px;
 }
 
 .optional--menu img {
     width: 30px !important;
 }
 
-.optional--menu-link {
-    position: relative;
+.menu {
+    background: var(--color-blue-1);
 }
 
-.optional--menu-link:hover::after {
-    background: rgba(var(--neutral-2));
-    border-radius: 7px;
-    color: rgba(var(--blue-3));
-    content: attr(data-help);
-    font-weight: bolder;
-    padding: 3px;
-    position: absolute;
-    right: 0;
-    top: calc(-100% - 5px);
-    width: 120px;
+.menu svg {
+    margin-right: 5px;
+    width: 30px !important;
+}
+
+.menu svg path {
+    stroke: var(--color-blue-2) !important;
+}
+
+.menu-active {
+    background: var(--color-blue-2);
+    color: var(--color-neutral-2);
+}
+
+.menu-active svg path {
+    stroke: var(--color-neutral-2) !important;
 }
 
 @media only screen and (max-width: 768px) {
@@ -92,6 +105,11 @@
 
     .optional--menu img {
         width: 23px !important;
+    }
+
+    .gateway-link {
+        height: 50px !important;
+        width: 100% !important;
     }
 }
 

@@ -6,6 +6,7 @@ const io = require("socket.io")(http);
 const expbs = require("express-handlebars");
 const PORT = process.env.PORT || 8080;
 const ROUTER = require("./router");
+const SOCKET_SERVICE = require("./app_webSocket/controller");
 const cookieParser = require("cookie-parser");
 
 app.io = io;
@@ -22,12 +23,8 @@ app.engine(
 app.set("views", "views");
 app.set("view engine", "handlebars");
 
-io.on("connection", (socket) => {
-    console.log("A user connected");
-    socket.on("disconnect", () => {
-        console.log("A client disconnected");
-    });
-});
+SOCKET_SERVICE.socketConnections(io);
+SOCKET_SERVICE.socketRecord(io);
 
 http.listen(PORT, () => {
     console.log(`🚀 Server is running on port ${PORT}`);
