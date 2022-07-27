@@ -14,7 +14,7 @@ router.post(
     authMiddlewares.allowedRole("ADMIN"),
     body("name").notEmpty(),
     body("sensorHeight").notEmpty(),
-    body("shortName").isLength({ min: "4", max: "4" }),
+    body("shortName").isLength({ min: "3", max: "3" }),
     body("location").notEmpty(),
     urlQuery("gwid").notEmpty(),
     formChacker,
